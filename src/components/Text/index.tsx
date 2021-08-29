@@ -18,8 +18,8 @@ export interface TextProps extends BaseElementProps {
   bold?: boolean;
   light?: boolean;
   medium?: boolean;
-  // regular?: boolean;
-  italic?: boolean;
+  regular?: boolean;
+  selected?: boolean;
   transform?: string;
   transitionDuration?: string;
 
@@ -57,9 +57,9 @@ const BaseText = styled.span<TextProps>`
 
 const mapText = (
   id: string | undefined,
-  type: TextProps['type'],
+  type: Props['type'],
   className: string | undefined,
-  selected: TextProps['selected'],
+  selected: Props['selected'],
   children: React.ReactNode
 ): JSX.Element =>  {
   switch(type) {
@@ -135,6 +135,7 @@ const mapText = (
         className={className}
         size={Size.MEDIUM}
         color={selected ? theme.color.offBlack : theme.color.darkGrey}
+        bold={selected}
       >
         {children}
       </BaseText>;

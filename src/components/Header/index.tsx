@@ -22,17 +22,21 @@ const MenuItem = styled(Text)`
   margin-right: 10px;
 `;
 
-const Header: FC = () => {
+interface Props {
+  currentPage: "About" | "Design" | "Art" | "Contact";
+};
+
+const Header: FC<Props> = ({currentPage}) => {
   return (
     <HeaderContainer>
       <Image src="/logo.png" width={86} height={86}/>
       <MenuContainer>
         <Text type="name"> DION LEWIS </Text>
         <InnerContainer>
-          <MenuItem type="menu">About</MenuItem>
-          <MenuItem type="menu">Design</MenuItem>
-          <MenuItem type="menu">Art</MenuItem>
-          <MenuItem type="menu">Contact</MenuItem>
+          <MenuItem selected={currentPage === "About"} type="menu">About</MenuItem>
+          <MenuItem selected={currentPage === "Design"} type="menu">Design</MenuItem>
+          <MenuItem selected={currentPage === "Art"} type="menu">Art</MenuItem>
+          <MenuItem selected={currentPage === "Contact"} type="menu">Contact</MenuItem>
         </InnerContainer>
       </MenuContainer>
     </HeaderContainer>

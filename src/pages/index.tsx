@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import theme, { ThemeContext }  from '../theme';
 import Head from 'next/head';
 import Page from '../components/Core/Page';
+import About from '../components/About';
 
 const Home: NextPage = () => {
   return (
@@ -20,7 +21,9 @@ const Home: NextPage = () => {
         <meta property="og:type" content="website" />
       </Head>
       <ThemeContext.Provider value={theme}>
-        <Page/>
+        <Page>
+          <About/>
+        </Page>
       </ThemeContext.Provider>
     </>
   );

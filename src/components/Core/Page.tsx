@@ -30,7 +30,7 @@ const Page: FC = ({ children }) => {
   return (
     <PageContainer color={theme.color.background}>
       <InnerContainer>
-        <Header/>
+        <Header currentPage="About"/>
         {children}
       </InnerContainer>
     </PageContainer>
