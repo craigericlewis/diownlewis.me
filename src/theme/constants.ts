@@ -2,11 +2,11 @@ import { Size } from '../types/size';
 
 export const theme = {
   color: {
-    blue: "#003FFF",
-    darkGrey: "#727272",
-    lightGrey: "#F1F1F1",
-    offBlack: "#1A1919",
-    background: "#F1F1F1",
+    blue: '#003FFF',
+    darkGrey: '#727272',
+    lightGrey: '#F1F1F1',
+    offBlack: '#1A1919',
+    background: '#F1F1F1',
   },
   fontSize: {
     [Size.XSMALL]: 14,

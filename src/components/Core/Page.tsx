@@ -7,9 +7,12 @@ interface PageContainerProps {
   color: string;
 }
 
+interface Props {
+  name: 'About' | 'Design' | 'Art' | 'Contact';
+}
+
 const PageContainer = styled.div<PageContainerProps>`
   display: flex;
-  background-color: ${({color}) => color}};
   height: 100vh;
   min-width: 100vw;
   justify-content: center;
@@ -18,6 +21,7 @@ const PageContainer = styled.div<PageContainerProps>`
 `;
 
 const InnerContainer = styled.div`
+  background-color: ${({color}) => color}};
   position: relative;
   max-width: 1000px;
   width: 100%;
@@ -26,11 +30,11 @@ const InnerContainer = styled.div`
   flex-direction: column;
 `;
 
-const Page: FC = ({ children }) => {
+const Page: FC<Props> = ({ children, name }) => {
   return (
     <PageContainer color={theme.color.background}>
       <InnerContainer>
-        <Header currentPage="About"/>
+        <Header currentPage={name}/>
         {children}
       </InnerContainer>
     </PageContainer>

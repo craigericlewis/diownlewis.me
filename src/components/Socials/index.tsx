@@ -6,7 +6,7 @@ import IconWrapper from './IconWrapper';
 const SocialContainer = styled.div`
   margin-top: 40px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 `;
 
 const Socials: FC = () => {
@@ -16,18 +16,27 @@ const Socials: FC = () => {
         fill={theme.color.offBlack}
         hoverFill={theme.color.blue}
         sideLength={36}
-        name="resume"
+        name='resume'
         onClick={() => {}}
-        iconPadding="2px"
+        iconPadding='2px'
       />
       <IconWrapper 
         fill={theme.color.offBlack}
         hoverFill={theme.color.blue}
         sideLength={35}
-        name="linkedin"
+        name='linkedin'
         onClick={() => {}}
-        iconPadding="2px"
-        iconMargin={"4px auto auto 2px"}
+        iconPadding='2px'
+        iconMargin={'1px 0 0 4px'}
+      />
+      <IconWrapper 
+        fill={theme.color.offBlack}
+        hoverFill={theme.color.blue}
+        sideLength={35}
+        name='email'
+        onClick={() => {}}
+        iconPadding='2px'
+        iconMargin={'1px auto auto 4px'}
       />
     </SocialContainer>
   );

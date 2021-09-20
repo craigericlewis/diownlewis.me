@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
-import { BaseElementProps } from "../../types/BaseElementProps";
-import { Size } from "../../types/size";
-import theme from "../../theme";
+import React from 'react';
+import styled from 'styled-components';
+import { BaseElementProps } from '../../types/BaseElementProps';
+import { Size } from '../../types/size';
+import theme from '../../theme';
 
 export interface TextProps extends BaseElementProps {
   /**
@@ -11,22 +11,24 @@ export interface TextProps extends BaseElementProps {
   size: Size;
   color?: string;
   lineHeight?: string;
-  align?: "left" | "right" | "center" | "justify";
+  align?: 'left' | 'right' | 'center' | 'justify';
   // heading?: boolean; // affects font family
-  fontFamily?: "heading" | "body" | "name";
+  fontFamily?: 'heading' | 'body' | 'name';
   underline?: boolean;
   bold?: boolean;
   light?: boolean;
   medium?: boolean;
   regular?: boolean;
   selected?: boolean;
+  hovered?: boolean;
   transform?: string;
   transitionDuration?: string;
+  fontWeight?: number;
 
   /**
    * What HTML element type to use to render the component.
    */
-  as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span" | "div";
+  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span' | 'div';
 
   /**
    * Specifies a predefined set of styles to apply to the Text component.
@@ -37,18 +39,19 @@ export interface TextProps extends BaseElementProps {
 }
 
 const BaseText = styled.span<TextProps>`
-  font-family: ${({fontFamily}) => fontFamily ? theme.fontFamily[fontFamily] : theme.fontFamily["heading"]};
+  font-family: ${({fontFamily}) => fontFamily ? theme.fontFamily[fontFamily] : theme.fontFamily['heading']};
   font-size:  ${({ size = Size.MEDIUM }) => `${theme.fontSize[size]}px` || `${size}px`};
-  color: ${({ color = "" }) => theme.color[color] || color || "inherit"};
-  text-decoration-color: ${({ color = "" }) =>
-    theme.color[color] || color || "inherit"};
+  color: ${({ color = '' }) => theme.color[color] || color || 'inherit'};
+  text-decoration-color: ${({ color = '' }) =>
+    theme.color[color] || color || 'inherit'};
   line-height: ${({ lineHeight }) => lineHeight};
-  text-align: ${({ align = "left" }) => align};
+  text-align: ${({ align = 'left' }) => align};
   ${({ underline }) => underline && `text-decoration: underline;`}
   ${({ bold }) => bold && `font-weight: bold;`}
   ${({ light }) => light && `font-weight: light;`}
   ${({ medium }) => medium && `font-weight: medium;`}
   ${({ italic }) => italic && `font-style: italic;`}
+  ${({fontWeight}) => `font-weight: ${fontWeight};`}
   margin: 0;
   padding: 0;
   transform: ${({ transform }) => transform};
@@ -60,10 +63,12 @@ const mapText = (
   type: Props['type'],
   className: string | undefined,
   selected: Props['selected'],
-  children: React.ReactNode
+  hovered: Props['hovered'],
+  children: React.ReactNode,
+  align: Props['align']
 ): JSX.Element =>  {
   switch(type) {
-    case "h1":
+    case 'h1':
       return <BaseText
         id={id}
         as={type}
@@ -74,27 +79,32 @@ const mapText = (
       >
         {children}
       </BaseText>;
-    case "h2":
+    case 'h2':
       return <BaseText
         id={id}
         as={type}
         className={className}
         size={Size.XLARGE}
-        color={selected ? theme.color.offBlack : theme.color.darkGrey}
+        fontWeight={300}
+        color={selected ? theme.color.offBlack : (
+            hovered ? theme.color.blue :
+            theme.color.darkGrey
+          )}
       >
         {children}
       </BaseText>;
-    case "h3":
+    case 'h3':
       return <BaseText
         id={id}
         as={type}
         className={className}
         size={Size.LARGE}
         color={theme.color.darkGrey}
+        fontWeight={300}
       >
         {children}
       </BaseText>;
-    case "h4":
+    case 'h4':
       return <BaseText
         id={id}
         as={type}
@@ -104,22 +114,23 @@ const mapText = (
       >
         {children}
       </BaseText>;
-    case "body":
+    case 'body':
       return <BaseText
         id={id}
-        as={"p"}
+        as={'p'}
         className={className}
         size={Size.MEDIUM}
         color={theme.color.darkGrey}
+        align={align}
         light
       >
         {children}
       </BaseText>;
-    case "name":
+    case 'name':
       return <BaseText
         id={id}
-        as={"p"}
-        fontFamily="name"
+        as={'p'}
+        fontFamily='name'
         className={className}
         size={Size.MEDIUM}
         color={theme.color.offBlack}
@@ -127,15 +138,20 @@ const mapText = (
       >
         {children}
       </BaseText>;
-    case "menu":
+    case 'menu':
       return <BaseText
         id={id}
-        as={"p"}
-        fontFamily="body"
+        as={'p'}
+        fontFamily='body'
+        fontWeight={540}
         className={className}
         size={Size.MEDIUM}
-        color={selected ? theme.color.offBlack : theme.color.darkGrey}
-        bold={selected}
+        color={
+          selected ? theme.color.offBlack : (
+            hovered ? theme.color.blue : theme.color.darkGrey
+          )
+        }
+        // bold={selected}
       >
         {children}
       </BaseText>;
@@ -154,14 +170,16 @@ const mapText = (
 }
 
 interface Props {
-  type?: "h1" | "h2" | "h3" | "h4" | "body" | "name" | "menu";
+  type?: 'h1' | 'h2' | 'h3' | 'h4' | 'body' | 'name' | 'menu';
+  align?: 'left' | 'right' | 'center' | 'justify';
   selected?: boolean;
+  hovered?: boolean;
   id?: BaseElementProps['id'];
   className?: BaseElementProps['className'];
 };
 
-const Text: React.FC<Props> = ({ children, type, id, className, selected}) => {
-  return mapText(id, type, className, selected, children);
+const Text: React.FC<Props> = ({ children, type, id, className, selected, hovered, align}) => {
+  return mapText(id, type, className, selected, hovered, children, align);
 };
 
 export default Text;

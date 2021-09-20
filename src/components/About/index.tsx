@@ -30,15 +30,15 @@ const ResumeContainer = styled.div`
 const About: FC = () => {
   return (
     <AboutContainer>    
-      <Image src="/headshot.png" width={460} height={700}/>
+      <Image src='/headshot.png' width={460} height={700}/>
       <AboutRightContainer>
         <Text>
           I enjoy creating and helping
         </Text>
         <Socials/>
         <ResumeContainer>
-          <Document file="./resume.pdf">
-            <Page pageNumber={1} renderMode="svg" height={410}/>
+          <Document file='./resume.pdf'>
+            <Page pageNumber={1} renderMode='svg' height={410}/>
           </Document>
         </ResumeContainer>
       </AboutRightContainer>

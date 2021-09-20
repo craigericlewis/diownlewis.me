@@ -42,17 +42,17 @@ class MyDocument extends Document {
       <DocumentHtml>
         <Head>
         <link
-            href="/fonts/style.css"
-            rel="stylesheet"
+            href='/fonts/style.css'
+            rel='stylesheet'
           />
           <link
-            rel="preload"
-            href="/fonts/LexendExa-Regular.ttf"
-            as="font"
-            crossOrigin=""
+            rel='preload'
+            href='/fonts/LexendExa-Regular.ttf'
+            as='font'
+            crossOrigin=''
           />
         </Head>
-        <body style={{margin: "0"}}>
+        <body style={{margin: '0'}}>
           <Main />
           <NextScript />
         </body>
